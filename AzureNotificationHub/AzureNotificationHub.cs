@@ -136,6 +136,28 @@ namespace AzureNotificationHub
         }
 
         /// <summary>
+        /// Retrieves all registrations.
+        /// </summary>
+        /// <returns></returns>
+        public async Task<string> CreateRegistrationID()
+        {
+            HttpClient hc = GetClient("registrationIDs");
+
+            try
+            {
+                HttpResponseMessage response = await hc.PostAsync(string.Empty, content: null);
+                response.EnsureSuccessStatusCode();
+                string absolutePath = response.Headers.Location.AbsolutePath;
+                string registrationID = absolutePath.Substring(34);
+                return registrationID;
+            }
+            catch (Exception e)
+            {
+                throw (new Exception("Error on service call", e));
+            }
+        }
+
+        /// <summary>
         /// Creates or updates a registration in the specified location.
         /// </summary>
         /// <param name="registration"></param>
@@ -163,7 +185,9 @@ namespace AzureNotificationHub
 
             try
             {
+                string rest = registration.SerializeAsEntry();
                 HttpResponseMessage response = await hc.PostAsync(string.Empty, new StringContent(registration.SerializeAsEntry(), Encoding.UTF8, "application/atom+xml"));
+                
                 response.EnsureSuccessStatusCode();
 
                 return registration.Deserialize(await response.Content.ReadAsStringAsync());
@@ -185,6 +209,7 @@ namespace AzureNotificationHub
 
             try
             {
+                string rest = registration.SerializeAsEntry();
                 HttpResponseMessage response = await hc.PutAsync(string.Empty, new StringContent(registration.SerializeAsEntry(), Encoding.UTF8, "application/atom+xml"));
                 response.EnsureSuccessStatusCode();
 
