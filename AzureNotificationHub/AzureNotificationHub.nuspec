@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+    <metadata>
+    <id>NotificationsHubNetStandard</id>
+
+    <version>1.2</version>
+
+    <authors>daniel.henao, migue.tamayo</authors>
+
+    <owners>Yuxi Global</owners>
+	
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+
+    <releaseNotes>Methods Added</releaseNotes>
+
+    <description>Use NotificationHub in Net Standard 1.6</description>
+
+    <dependencies>
+        <dependency id="Newtonsoft.Json" version="10.0.2" />
+		<dependency id="System.ValueTuple" version="4.3.0" />
+    </dependencies>
+    </metadata>
+</package>
